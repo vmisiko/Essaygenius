@@ -1,0 +1,90 @@
+<template>
+
+    <v-row >
+
+        <sidebar class="sidebar"> </sidebar> 
+
+        <v-main class="mx-15 mt-5 main" >
+
+            <h2> Notifications </h2>
+
+            <div class="ant-card " style="height:400px;">
+                <!-- <v-img
+                    :src="require('../assets/img/svg/no-notifications.svg')"
+                    class="my-3"
+                    contain
+                    height="200"
+                    />
+                <div class="text-center">
+                    <h3> Your do not have any notifications </h3>
+                    <P>
+                        Please complete any action such as placing an order, editing an order, hiring a writer, etc., to receive new notifications
+
+                    </P> -->
+
+                <!-- <div> -->
+                    <PlaceHolder
+                    :src = "require('../assets/img/svg/no-notifications.svg')"
+                    title=" Your do not have any notifications"
+                    text =" Please complete any action such as placing an order, editing an order, hiring a writer, etc., to receive new notifications"
+                />
+
+
+            
+                
+
+            </div>
+
+ 
+            
+
+
+        </v-main>
+        
+
+    </v-row>
+    
+</template>
+
+<script>
+import NavigationDrawer from "../components/NavigationDrawer"
+import PlaceHolder from "../components/PlaceHolder"
+
+export default  {
+    name:"Notifications",
+    components:{
+        sidebar: NavigationDrawer,
+        PlaceHolder: PlaceHolder,
+        
+
+    },
+    data () {
+        return {
+            msg :"hey message",
+           
+
+        }
+    },
+
+    
+    
+}
+</script>
+
+<style  scoped>
+
+.card-header {
+    background:#232c3b;
+    height:70px;
+    border: 2px solid #273142;
+    border-radius: 4px;
+
+}
+
+.icon {
+   width: 70px;
+   text-align: left;
+}
+
+
+</style>

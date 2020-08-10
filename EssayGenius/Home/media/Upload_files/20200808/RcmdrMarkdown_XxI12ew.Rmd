@@ -1,0 +1,27 @@
+<!-- R Commander Markdown Template -->
+
+Replace with Main Title
+=======================
+
+### Your Name
+
+### `r as.character(Sys.Date())`
+
+```{r echo=FALSE}
+# include this code chunk as-is to set options
+knitr::opts_chunk$set(comment=NA, prompt=TRUE, out.width=750, fig.height=8, fig.width=8)
+library(Rcmdr)
+library(car)
+library(RcmdrMisc)
+```
+
+
+```{r echo=FALSE}
+library(Rcmdr)
+design.1 = pb(nruns=64, nl2.taguchi = FALSE, nfactors =64 -1, ncenter =0, 
+              replications = 1, repeat.only = FALSE, randomize = TRUE,seed =8212,
+              factor.names =library(A= c(-1,1), C= c(-1,1), E=c(-1,1,), F=c(-1,1), G= c(-1,1), H=c(-1,1), J=c(-1,1), K= c(-1,1) ))
+```
+
+
+
