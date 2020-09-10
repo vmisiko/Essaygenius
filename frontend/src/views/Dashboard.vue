@@ -4,160 +4,68 @@
 
         <sidebar class="sidebar"> </sidebar> 
 
-        <v-main class="mx-15 mt-5 main" >
+        <v-main class="main-wrap">
+            <!-- <Myorders/> -->
 
-            <!-- {{msg}} -->
-
-            <v-row class="">
-                <v-col>
-                    <h1 class="float-left"> My Orders </h1>
-
-                </v-col>
-                
-                <v-col>
-                    <router-link to="/orderdetails/">
-                        <v-btn class ="primary float-right"> 
-                            <v-icon>mdi-plus-circle </v-icon> New Order
-                        </v-btn>
-                    </router-link>
-                </v-col>
-
-                
-            </v-row>
-
-            <v-row class="">
-
-                <v-tabs
-                background-color="transparent"
-                
-                >
-                    <v-tab>Opened</v-tab>
-                    <v-tab>Draft</v-tab>
-                    <v-tab>Closed</v-tab>
-
-                    <v-tab-item class="mt-3 ">
-
-                        <div class="ant-card " style="height:400px;">
-
-                             <div class="card-header">
-                               <h3> Opened Orders </h3>
-
-                            </div>
-                            <OpenedOrder 
-                            :topic="propsorder.topic"
-                            :pages="propsorder.pages"
-                            :type="propsorder.type"
-                            :language="propsorder.language"
-                            :status="propsorder.status"
-                            :amount="propsorder.amount"
-                            :time="propsorder.time"
-                            />
-                       
-                                            
-                             
-
-                        </div>
-
-                    </v-tab-item>
-
-                    
-                    <v-tab-item class="mt-3 ">
-
-                        <div class="ant-card " style="height:400px;">
-
-                            <div class="card-header">
-                                
-                                <h3>Draft orders</h3>
-
-                            </div>
-                              <orderlist 
-                                :topic="propsorder.topic"
-                                :pages="propsorder.pages"
-                                :type="propsorder.type"
-                                :language="propsorder.language"
-                                :status="propsorder.status"
-                                :amount="propsorder.amount"
-                                :time="propsorder.time"
-                                />     
-
-                        </div>
-
-                    </v-tab-item>
-                    
-                    <v-tab-item class="mt- ">
-
-                        <div class="ant-card " style="height:400px;">
-
-                            <div class="card-header">
-                                <h3 class="float-left"> Orders Closed </h3>
-
-
-
-                            </div>
-
-                             <ClosedOrder 
-                            :topic="propsorder.topic"
-                            :pages="propsorder.pages"
-                            :type="propsorder.type"
-                            :language="propsorder.language"
-                            :status="propsorder.status"
-                            :amount="propsorder.amount"
-                            :time="propsorder.time"
-                            />
-                            
-                             
-
-                        </div>
-
-                    </v-tab-item>
-
-                </v-tabs>
-
-            </v-row>
             
+            <div class="main backdrop mx-15 mt-5">
+                <router-view/>
+            </div>
 
-
+            <!-- <Chatlist/> -->
+            <div :is="currentComponent" :swap-component="swapComponent"></div>
+       
 
 
 
         </v-main>
         
-
     </v-row>
     
 </template>
 
 <script>
 import NavigationDrawer from "../components/NavigationDrawer"
-import Order_list from "../components/order_list"
-import ClosedOrder from "../components/ClosedOrder"
-import OpenedOrder from "../components/OpenedOrder"
-
+import ChatComponent from "./ChatComponent"
+import Chatlist from "./Chatlist"
 export default  {
     name:"Dashboard",
     components:{
         sidebar: NavigationDrawer,
-        Orderlist: Order_list,
-        ClosedOrder:ClosedOrder,
-        OpenedOrder:OpenedOrder
-
+        "ChatComponent":ChatComponent,
+        "Chatlist":Chatlist,
     },
     data () {
         return {
             msg :"hey message",
-            propsorder: {
-                topic:'Python', 
-                pages:"2",
-                type: "Essay (any)",
-                language:"English (UK)",
-                status:"Draft",
-                amount: "7", 
-                time:"2 days remaining",
-
-            },
-
+            chatstatus:true,
+            currentComponent: 'Chatlist'
         }
     },
+    methods:{
+        chatopen (){
+
+                if( this.chatstatus){
+                document.getElementById("curtain").style.display = "none"
+                } else {
+                document.getElementById("curtain").style.display = "block"
+
+                }
+        },
+        chatclose (){
+
+            this.chatstatus =!this.chatstatus
+            document.getElementById("curtain").style.display = "none"
+
+        },
+        swapComponent: function(component) {
+         this.currentComponent = component;
+        }
+
+    },
+  
+    
+
 
     
     
@@ -166,13 +74,36 @@ export default  {
 
 <style  scoped>
 
-.card-header {
+.main-wrap {
+    position: relative;
+}
+
+
+
+.backdrop {
+position: fixed;
+} 
+
+#curtain {
+    display: block;
+    height: 100vh;
+    width: 370px;
+    min-width: 370px;
+    background-color:#ffff;
+    position: absolute;
+    z-index: 9999;
+    top: 0px; 
+    right: 0px;
+    color:black;
+}
+    
+
+/* .card-header {
     background:#232c3b;
     height:70px;
     border: 2px solid #273142;
     border-radius: 4px;
-
-}
+} */
 
 .icon {
    width: 70px;

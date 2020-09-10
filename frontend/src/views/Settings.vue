@@ -1,12 +1,9 @@
 <template>
 
-    <v-row >
 
-        <sidebar class="sidebar"> </sidebar> 
+        <v-main class="" >
 
-        <v-main class="mx-15 mt-5 main " >
-
-            <h2> settings </h2>
+            <h2> Settings </h2>
 
             <div class="ant-card " style="height:250px;">
             <v-form ref="loginform" v-model="valid" lazy-validation>
@@ -200,10 +197,9 @@
 
 
 
-
             <!-- phone number   -->
 
-             <div class="ant-card mt-5 mb-5" style="height:250px;">
+             <div class="ant-card mt-5 mb-10" style="height:250px;">
                 
                 <div class="card-header">
                     <h5 class="float-left"> Phone Number </h5>
@@ -297,18 +293,18 @@
         </v-main>
         
 
-    </v-row>
+ 
     
 </template>
 
 <script>
-import NavigationDrawer from "../components/NavigationDrawer"
+// import NavigationDrawer from "../components/NavigationDrawer"
 
 export default  {
     name:"Settings",
 
     components:{
-        sidebar: NavigationDrawer, 
+        // sidebar: NavigationDrawer, 
     },
 
     data () {

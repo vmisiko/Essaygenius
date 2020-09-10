@@ -15,10 +15,14 @@
      
       <v-list-item>
         <v-list-item-content>
-          <v-list-item-title class="title primary--text">
-            Essay Genius
-          </v-list-item-title>
-          
+          <!-- <v-list-item-title class="title primary--text">
+            <img src="require('../assets/img/Genius.jpeg')" alt="ESsay Genius">
+          </v-list-item-title> -->
+
+            <v-img
+              :src="require('../assets/img/Genius.jpeg')"
+              alt="Essay Genius"
+            />
         </v-list-item-content>
       </v-list-item>
     
@@ -42,7 +46,7 @@
       <v-divider></v-divider>
 
    
-    <router-link to="/balance/" tag='div'>
+    <router-link to="/dashboard/balance/" tag='div'>
       <v-list dense nav>
 
         <v-list-item link >
@@ -57,7 +61,7 @@
       </v-list>
     </router-link>
 
-    <router-link to="/notifications/" tag='div'>
+    <router-link to="/dashboard/notifications/" tag='div'>
         <v-list dense nav>
 
                 <v-list-item link >
@@ -73,7 +77,7 @@
 
     </router-link> 
 
-    <router-link to="/settings/" tag='div'>
+    <router-link to="/dashboard/settings/" tag='div'>
 
         <v-list dense nav>
 
@@ -92,7 +96,7 @@
 
       <v-divider> </v-divider>
 
-    <router-link to="/dashboard/" tag='div'>
+    <router-link to="/dashboard/myorders" tag='div'>
 
       <v-list dense nav>
 
@@ -110,9 +114,7 @@
     </router-link>
 
 
-    <router-link to="orderdetails" tag='div'>
-
-      <v-list dense nav>
+      <v-list dense nav @click.native="chatopen">
 
         <v-list-item link >
           <v-list-item-icon>
@@ -124,7 +126,6 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-    </router-link>
 
 
     </v-navigation-drawer>
@@ -145,6 +146,12 @@
         right: null,
         ant:"#273142",
       }
+    },
+    methods:{
+      chatopen: function(){
+        console.log("clicked")
+        this.$root.$emit('chatopen') //like this
+      },
     },
   }
 </script>

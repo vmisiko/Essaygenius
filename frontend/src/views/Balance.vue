@@ -1,10 +1,8 @@
 <template>
 
-    <v-row >
+ 
 
-        <sidebar class="sidebar"> </sidebar> 
-
-        <v-main class="mx-15 mt-5 main" >
+        <v-main class="" >
 
             <h2> My Balance: $0.00 </h2>
 
@@ -83,17 +81,14 @@
         </v-main>
         
 
-    </v-row>
     
 </template>
 
 <script>
-import NavigationDrawer from "../components/NavigationDrawer"
 
 export default  {
     name:"Balance",
     components:{
-        sidebar: NavigationDrawer,
         
 
     },

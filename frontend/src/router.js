@@ -11,6 +11,9 @@ import Dashboard from "./views/Dashboard"
 import Notifications from "./views/Notifications"
 import Settings from "./views/Settings"
 import Balance from "./views/Balance"
+import Myorders from "./views/Myorders"
+// import Chatlist from "./views/Chatlist"
+// import ChatComponent from "./views/ChatComponent"
 
 Vue.use(Router);
 
@@ -68,25 +71,35 @@ export default new Router({
     },
     {
       path:"/dashboard/",
-      name:"dashboard",
-      component: Dashboard
-    },
-    {
-      path:'/notifications/',
-      name:"notifications",
-      component: Notifications
-    },
-    {
-      path:'/settings/',
-      name:"settings",
-      component:Settings
+      component:Dashboard,
+      children: [
+        {
+          path:'',
+          component: Myorders
+        },
+        
+        {
+          path:'myorders',
+          component: Myorders
+        },
 
+        {
+          path:'notifications',
+          component: Notifications
+        },
+        {
+          path:'settings',
+          component:Settings
+    
+        },
+        {
+          path:"balance",
+          name:"balance",
+          component:Balance
+        },
+     
+      ],
     },
-    {
-      path:"/balance/",
-      name:"balance",
-      component:Balance
-    }
     
   ]
 });

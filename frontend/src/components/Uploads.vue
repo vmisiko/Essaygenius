@@ -350,27 +350,10 @@ export default {
             
             console.log(formData, "this is the formdata");
 
-
-            axios.post(`http://127.0.0.1:8000/api/uploads/${this.$route.params.id}/`, 
-
-            formData
-
-            ).then((res) => {
-
-                console.log( res.data)
-                // this.loading = !this.loading
-                this.upload_done = !this.upload_done
-                
-
-            
-            })
-            .catch((e) => {
-                console.log(e)
-
-             })
+ 
 
         },
-         Mydelete () {
+        Mydelete () {
 
             axios.delete(`http://127.0.0.1:8000/api/orderdetailsdraft/${this.$route.params.id}/`, {
                 body:{"delete": "delete"}
