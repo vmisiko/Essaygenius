@@ -82,6 +82,9 @@ overflow-y:scroll;
 #chat-body::-webkit-scrollbar {
      display:none
  }
+ .ant {
+    background: #273142; 
+}
     
 
 

@@ -12,8 +12,12 @@ import Notifications from "./views/Notifications"
 import Settings from "./views/Settings"
 import Balance from "./views/Balance"
 import Myorders from "./views/Myorders"
-// import Chatlist from "./views/Chatlist"
-// import ChatComponent from "./views/ChatComponent"
+import SignView from "./views/SignView"
+import Login from "./components/Login"
+import Signup from "./components/Signup"
+import Forgotpassword from "./components/Forgotpassword"
+
+
 
 Vue.use(Router);
 
@@ -99,6 +103,26 @@ export default new Router({
         },
      
       ],
+    },
+    {
+      path:"/auth/",
+      component:SignView,
+      children:[
+        {
+         path:"login",
+        component:Login,
+        },
+        {
+          path:"register",
+          component:Signup
+        },
+       {
+         path:"forgot-password",
+         component:Forgotpassword
+
+       }
+
+      ]
     },
     
   ]

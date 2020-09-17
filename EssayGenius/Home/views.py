@@ -5,6 +5,7 @@ from .serializers import OrderSerializer, VueOrderSerializer, UploadFileSerializ
 from .models import Orders, VueOrders, UploadFiles
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
 from django.http import JsonResponse
 
 
@@ -199,9 +200,6 @@ class OrderIntructionsApi(generics.ListCreateAPIView):
 
 
 
-
-
-
 def serializer(img):
     img_se =  {
         'file':img.files.name,
@@ -257,4 +255,11 @@ class OrderUploadApi(APIView):
         }
         return JsonResponse(data)
 
+
+class HelloView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        content = {'message': 'Hello, World!'}
+        return Response(content)
 

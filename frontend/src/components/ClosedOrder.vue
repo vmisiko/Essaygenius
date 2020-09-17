@@ -1,5 +1,7 @@
   <template>
     <div class="mx-5">
+        <v-list-item link dense>
+            
         <div class="hovereffect">
               <v-row class=" hovmargin">
                 <v-col cols="5" class="mt-n4">
@@ -62,7 +64,8 @@
              </v-row>
 
         </div>
-       
+
+       </v-list-item>
         <v-divider class="mt-n3"></v-divider>                            
     </div>         
   </template>

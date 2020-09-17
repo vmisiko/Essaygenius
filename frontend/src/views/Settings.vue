@@ -359,10 +359,10 @@ export default  {
                 alert("phone validated")
             }
         },
-        // validatephone (formattedNumber, { number, valid, country }) {
-        //     console.log(number.international, valid, country.name )
+        validatephone (formattedNumber, { number, valid, country }) {
+            console.log(number.international, valid, country.name )
        
-        // },
+        },
 
 
     },

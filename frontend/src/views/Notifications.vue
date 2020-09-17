@@ -11,7 +11,7 @@
                     :src = "require('../assets/img/svg/no-notifications.svg')"
                     title=" Your do not have any notifications"
                     text =" Please complete any action such as placing an order, editing an order, hiring a writer, etc., to receive new notifications"
-                />
+                    />
 
 
             </div>

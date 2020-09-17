@@ -31,13 +31,23 @@
 
                     <v-tab-item class="mt-3 ">
 
-                        <div class="ant-card " style="height:400px;">
+                        <div class="ant-card  " style="height:400px;">
 
                              <div class="card-header">
                                <h3> Opened Orders </h3>
 
                             </div>
-                            <OpenedOrder 
+                              
+                            <PlaceHolder
+                            style="width:70vw"
+                            v-if="true"
+                            :src = "require('../assets/img/svg/no-notifications.svg')"
+                            title=" Nothing Here"
+                            text =" Your opened orders appears here when you create first order"
+                            />
+
+                            <OpenedOrder
+                            v-else
                             :topic="propsorder.topic"
                             :pages="propsorder.pages"
                             :type="propsorder.type"
@@ -117,6 +127,7 @@
 import Order_list from "../components/order_list"
 import ClosedOrder from "../components/ClosedOrder"
 import OpenedOrder from "../components/OpenedOrder"
+import PlaceHolder from "../components/PlaceHolder"
 
 export default  {
     name:"Myorders",
@@ -124,7 +135,8 @@ export default  {
        
         Orderlist: Order_list,
         ClosedOrder:ClosedOrder,
-        OpenedOrder:OpenedOrder
+        OpenedOrder:OpenedOrder,
+        PlaceHolder:PlaceHolder,
 
     },
     data () {

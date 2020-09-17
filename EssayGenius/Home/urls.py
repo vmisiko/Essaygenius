@@ -14,6 +14,6 @@ urlpatterns = [
     path("orderdetailsdraft/<pk>/", views.OrderdetaildraftApi.as_view(), name="orderdraft"),
     path("instructions/<pk>/", views.OrderIntructionsApi.as_view(), name= "instructions"),
     path("uploads/<pk>/", views.OrderUploadApi.as_view(), name="uploads"),
-
+    path('hello/', views.HelloView.as_view(), name='hello'),
     
 ]

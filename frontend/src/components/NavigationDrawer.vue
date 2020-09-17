@@ -15,9 +15,7 @@
      
       <v-list-item>
         <v-list-item-content>
-          <!-- <v-list-item-title class="title primary--text">
-            <img src="require('../assets/img/Genius.jpeg')" alt="ESsay Genius">
-          </v-list-item-title> -->
+      
 
             <v-img
               :src="require('../assets/img/Genius.jpeg')"
@@ -127,13 +125,32 @@
         </v-list-item>
       </v-list>
 
+    <template v-slot:append>
+
+      
+      <v-list dense nav>
+        <v-divider></v-divider>
+          <v-list-item link  @click="logout" >
+            <v-list-item-icon>
+              <v-icon right dark>mdi-logout</v-icon>
+              <!-- <i class="far fa-edit"></i> -->
+            </v-list-item-icon>
+
+            <v-list-item-content>
+              <v-list-item-title> Logout </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+      </v-list>
+       
+      </template>
 
     </v-navigation-drawer>
   </v-card>
 </template>
 
 <script>
-
+import router from "../router"
+import store from "../store/store"
   export default {
     name:"NavigationDrawer",
     data () {
@@ -152,7 +169,17 @@
         console.log("clicked")
         this.$root.$emit('chatopen') //like this
       },
+      logout: ()=> {
+        console.log(store.state.authuser, "this is auth user before")
+        store.commit("removeToken")
+        console.log(store.state.authuser, "this is auth user")
+        router.push("/auth/login")
+      }
+
     },
+     mounted(){
+        console.log(store.state.jwt, store.state.isAuthenticated)
+    }
   }
 </script>
 
