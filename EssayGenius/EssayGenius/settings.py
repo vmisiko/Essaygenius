@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     "Home",
     'corsheaders',
+    "channels",
+    'livechat',
 ]
 
 MIDDLEWARE = [
@@ -107,7 +109,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'EssayGenius.wsgi.application'
 
+ASGI_APPLICATION = "EssayGenius.routing.application" 
 
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 

@@ -42,15 +42,12 @@ class UserView(APIView):
     serializer_class= UserGetSerializer
 
     def get(self, request):
-        # print(request.user)
-        # print(request.auth)
+        
         content = CustomUser.objects.get(email=request.user)
         serializer = UserGetSerializer(content)
 
 
         return Response(serializer.data)
 
-# @api_view(['GET',])
-# def UserView(request):
-#     print(request.query_params)
+
 

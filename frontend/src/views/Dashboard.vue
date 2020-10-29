@@ -12,7 +12,6 @@
                 <router-view/>
             </div>
 
-            <!-- <Chatlist/> -->
             <div :is="currentComponent" :swap-component="swapComponent"></div>
        
 

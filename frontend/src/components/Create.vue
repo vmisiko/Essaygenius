@@ -54,7 +54,6 @@ export default {
       event.preventDefault();
       this.$refs.file.files = event.dataTransfer.files;
       this.onChange(); // Trigger the onChange event manually
-      // Clean up
       event.currentTarget.classList.add('bg-gray-100');
       event.currentTarget.classList.remove('bg-green-300');
     }

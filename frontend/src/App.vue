@@ -75,7 +75,7 @@ position: fixed;
     color:black;
 }
 #chat-body{
-height:350px;
+height:280px;
 overflow-y:scroll;
 }
 

@@ -2,19 +2,6 @@
 from rest_framework import serializers
 from .models import CustomUser
 
-# class UserSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = CustomUser
-#         fields = ('email', 'password')
-#         extra_kwargs = {'password': {'write_only': True}}
-
-#     def create(self, validated_data):
-#         print(validated_data)
-#         password = validated_data.pop('password')
-#         user = CustomUser(**validated_data)
-#         user.set_password(password)
-#         user.save()
-#         return user
 
 class UserSerializer(serializers.ModelSerializer):
 
@@ -36,7 +23,6 @@ class UserSerializer(serializers.ModelSerializer):
             raise serializers.validationError({"password":"password must match"})
         user.set_password(password)
         user.save()
-
 
 
 class UserGetSerializer(serializers.ModelSerializer):

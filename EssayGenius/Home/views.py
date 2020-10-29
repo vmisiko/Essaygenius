@@ -43,9 +43,6 @@ class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Orders.objects.all()
     serializer_class = OrderSerializer
 
-
-
-
 class OrderdetailApi(generics.ListCreateAPIView):
     queryset = VueOrders.objects.all()
     serializer_class = VueOrderSerializer 
@@ -257,6 +254,7 @@ class OrderUploadApi(APIView):
 
 
 class HelloView(APIView):
+    
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):

@@ -88,7 +88,7 @@
                     <v-list-item-title> Settings </v-list-item-title>
                 </v-list-item-content>
             </v-list-item>
-      </v-list>
+       </v-list>
 
     </router-link>
 
@@ -98,7 +98,7 @@
 
       <v-list dense nav>
 
-        <v-list-item link >
+        <v-list-item link dense >
           <v-list-item-icon>
             <v-icon> mdi-pencil </v-icon>
             <!-- <i class="far fa-edit"></i> -->
@@ -125,9 +125,8 @@
         </v-list-item>
       </v-list>
 
-    <template v-slot:append>
-
       
+    <template v-slot:append>
       <v-list dense nav>
         <v-divider></v-divider>
           <v-list-item link  @click="logout" >

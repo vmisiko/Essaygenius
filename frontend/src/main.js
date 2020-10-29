@@ -13,11 +13,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import vuetify from './plugins/vuetify';
 import VueTelInputVuetify from 'vue-tel-input-vuetify/lib';
 import store from './store/store.js'
+import api from "./api.js";
 
-import axios from 'axios'
 
-axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
-axios.defaults.xsrfCookieName = "csrftoken"
  
 Vue.use(VueTelInputVuetify, {
   vuetify,
@@ -27,6 +25,10 @@ Vue.use(BootstrapVue)
 Vue.use(BootstrapVueIcons)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$http = api; 
+api.defaults.timeout = 10000;
+
 
 new Vue({
   router,

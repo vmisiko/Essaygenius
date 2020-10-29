@@ -24,13 +24,12 @@
 
                         </v-badge>
                         <v-list-item-content class="ml-3">
-                                <v-list-item-title>Victor</v-list-item-title>
+                                <v-list-item-title>{{loggedInUser.email}}</v-list-item-title>
                                 <v-list-item-subtitle>Online</v-list-item-subtitle>
                         </v-list-item-content>
 
                         
                         <v-btn icon class="" @click.prevent="chatclose"  light>  
-                           <!-- <h2><span aria-hidden="true">&times;</span></h2>  -->
                            <v-icon >fa-times</v-icon>
 
                         </v-btn>
@@ -40,23 +39,37 @@
                     </v-toolbar>
 
                     <div class="card-body">
-                         <div id="chat-body" >
-                            <div class="mb-4 mx-3" >
+                        <div id="chat-body" >
 
-                                    <div >
-                                        <span class="ml-2 mb-1"> <b> victor: </b> </span> <br>
-                                        <span class="rounded green white--text px-4 py-1"> hey bro </span>
+                             <div v-if="noMessages" class="mt-5 mx-3 text-center">
+                                No messages yet
+                            </div>
+
+
+
+   
+
+
+                            <div class="mb-4 mx-3" v-else>
+                                
+                                <div  class="mb-4 mx-3" v-for="(message,index) in messages" :key="index" >
+                                     <div v-if="chatUsersMap[message.sender] !== loggedInUser.email">
+                                        <span class="ml-2 mb-1"> <b> {{ chatUsersMap[message.sender] }}: </b> </span> <br>
+                                        <span class="rounded green white--text px-4 py-1"> {{ message.text }} </span>
                                     </div>
 
-                                    <v-layout >
-                                        <v-spacer></v-spacer>
-                                        <span class="rounded grey lighten-3 black--text px-4 py-2"> yes whatsup? </span>                           
+                                     <v-layout v-else>
+                                        <v-spacer></v-spacer>   
+                                        <span class="rounded grey lighten-3 black--text px-4 py-2"> {{ message.text }} </span>                           
                                     </v-layout>
+                                </div>
+                                    
                                     
                             </div>
+                            
                             <div id="bottomOfArea"> </div>
 
-                            </div> 
+                        </div> 
                             <v-divider></v-divider>  
                             <div></div>  	
                             <v-layout class="mx-4">
@@ -65,6 +78,7 @@
                                     label="Type here to send"
                                     light
                                     clearable
+                                    v-on:keyup.enter="send"
                                     :append-outer-icon="message ? 'mdi-send' : 'mdi-microphone'"
 
                                 ></v-text-field>
@@ -79,13 +93,22 @@
 </template>
 
 <script>
+import axios from "axios"
 export default {
     name:"ChatComponent",
     props: ['swapComponent'],
     data () {
         return {
-            message:"",
             chatstatus:true,
+            onlineUsers: "",
+            loggedInUser: {},
+            selectedUser: {},
+            chatUsersMap: {},          
+            chatSocket: null,
+            message: '',
+
+            messages: [],
+            noMessages: true
         }
     },
     methods:{
@@ -100,10 +123,72 @@ export default {
         chatclose (){
             this.chatstatus =!this.chatstatus
             document.getElementById("curtain").style.display = "none"
-        }
+        },
+        getChatToken(){
+            return (this.loggedInUser.id < this.selectedUser.id) ? ( this.loggedInUser.id+ "_" + this.selectedUser.id ) : this.selectedUser.id + "_" + this.loggedInUser.id   
+          },
+        recieveMessage (message) {
+              this.noMessages = false
+              this.messages.push(message)
+              setTimeout(() => {document.getElementById("bottomOfArea").scrollIntoView({ block: 'end',  behavior: 'smooth' }) }, 0)    
+          },
+        send() {
+            this.chatSocket.send(JSON.stringify({
+                'message': this.message,
+                'sender': this.loggedInUser,
+                'receiver': this.selectedUser,
+            }));
 
+            this.message = ''            
+        }       
         
     },
+    created(){
+        var senderid = 1
+        this.$root.$on("passChat", (value) => {
+            senderid= value
+            console.log("event reieved", senderid)
+
+
+        })
+        const instance =axios.create({
+            baseURL: "http://localhost:8000/",
+            headers: {'Authorization': 'Bearer '+this.$store.state.jwt}
+        }); 
+
+        instance.get(`/messageAPI/message/${senderid}/`).then((res) => {
+            // console.log(res.data)
+            this.loggedInUser= res.data.current_user
+            this.selectedUser = res.data.selected_user
+            this.messages = res.data.messages
+            this.noMessages = false
+            this.chatUsersMap[this.loggedInUser.id] = this.loggedInUser.email
+            this.chatUsersMap[this.selectedUser.id] = this.selectedUser.email	
+
+            console.log(this.messages)
+            console.log(this.chatUsersMap)
+            this.chatSocket = new WebSocket('ws://localhost:8000' + '/ws/chat/' + this.getChatToken() + '/')
+
+            this.chatSocket.onmessage = (m) => {
+                console.log(m.data)
+                let message = {
+                    sender: JSON.parse(m.data).sender.id,
+                    text: JSON.parse(m.data).message
+                    }
+                this.recieveMessage(message)
+            }
+
+        }).catch((error)=>{
+            console.log(error)
+        })
+    },
+
+    updated(){     
+        var elem = document.getElementById("bottomOfArea");
+        elem.scrollIntoView({behavior: "smooth", block: "end"});
+    },
+
+
     mounted() {
         this.$root.$on('chatopen', () => {
             this.chatstatus =!this.chatstatus

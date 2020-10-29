@@ -4,7 +4,7 @@ import axios from 'axios'
 
 
 Vue.use(Vuex)
-import router from "../router"
+// import router from "../router"
 
 export default new Vuex.Store({
     state: {
@@ -22,8 +22,8 @@ export default new Vuex.Store({
           authUser,
           isAuthenticated
         }) {
-          state.authUser= authUser
-          state.isAuthenticated= isAuthenticated
+          state.authUser = authUser
+          state.isAuthenticated = isAuthenticated
         },
         updateToken(state, newToken){
           localStorage.setItem('t', newToken);
@@ -48,7 +48,6 @@ export default new Vuex.Store({
               .then((response)=>{
                   console.log(response.data)
                   this.commit('updateToken', response.data.access);
-                  router.push("/dashboard/")
                 })
               .catch((error)=>{
                   console.log(error);
