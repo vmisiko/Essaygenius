@@ -1,9 +1,16 @@
-import axios from 'axios';
-import store from "./store/store.js"
+window.axios = require("axios");
 
+window.axios.defaults.headers.common["x-Requested-With"] = "XMLHttpRequest";
 
-export default axios.create({
-    baseURL: "http://localhost:8000/",
-    headers: {'Authorization': 'Bearer '+store.state.jwt}
-    
-}); 
+window.visa = () => {
+  let token = null;
+
+  let headers = {
+    Accept: "application/json",
+    "content-Type": "application/json"
+  };
+  if (token) {
+    headers["Authorization"] = "Bearer" + token;
+  }
+  return { headers };
+};
