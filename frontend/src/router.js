@@ -1,29 +1,18 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Edit from "./components/Edit.vue"
-import Create from "./components/Create.vue"
-import Index from "./components/Index.vue"
-import orderdetails from "./components/orderdetails"
-import Instructions from "./components/Instructions"
-import Uploads from "./components/Uploads"
-import orderdetailsdraft from "./components/orderdetailsdraft"
-import Dashboard from "./views/Dashboard"
-import Notifications from "./views/Notifications"
-import Settings from "./views/Settings"
-import Balance from "./views/Balance"
-import Myorders from "./views/Myorders"
-import SignView from "./views/SignView"
-import Login from "./components/Login"
-import Signup from "./components/Signup"
-import Forgotpassword from "./components/Forgotpassword"
-
-
+import Index from "@/components/Index.vue"
+import Myorders from '@/views/Myorders';
+import Dashboard from "@/views/Dashboard.vue"
+import Settings from "@/views/Settings.vue"
+import Balance from "@/views/Balance.vue"
+import SignView from "@/views/SignView.vue"
+import Login from "@/components/auth/Login.vue"
+import Signup from "@/components/auth/Signup.vue"
+import Forgotpassword from "@/components/auth/Forgotpassword.vue"
 
 Vue.use(Router);
 
-
-export default new Router({
-  routes: [
+const routes = [
     {
       path: "/",
       redirect: '/index'
@@ -31,12 +20,18 @@ export default new Router({
     {
       path: "/create",
       name: "create",
-      component: Create
+      component: Myorders,
+      // component: { 
+      //   Create: () => import('@/modules/Orders/Create')
+      //  },
     },
     {
       path: "/edit",
       name: "edit",
-      component:Edit
+      component: Myorders,
+      // component:{
+      //   Edit: () => import('@/modules/Orders/Edit')
+      // }
     },
     {
       path: "/index",
@@ -46,32 +41,44 @@ export default new Router({
     {
       path: "/orderdetails",
       name: "orderdetails",
-      component: orderdetails
+      component: {
+        orderdetails: () => import('@/modules/Orders/orderdetails.vue')
+      }
     },
     {
       path: "/instructions/",
       name: "instructions ",
-      component: Instructions
+      component: {
+        Instructions: () => import('@/modules/Orders/Instructions.vue')
+      }
     },
     {
       path: "/instructions/:id",
       name: "instructionsid ",
-      component: Instructions
+      component:{ 
+        Instructions: () => import('@/modules/Orders/Instructions.vue')
+      }
     },
     {
       path:"/uploads",
       name:"uploads",
-      component: Uploads
+      component: {
+        Uploads: ()=> import('@/modules/Orders/Uploads.vue')
+      }
     },
     {
       path:"/uploads/:id",
       name:"uploadsid",
-      component: Uploads
+      component: {
+        Uploads: ()=> import('@/modules/Orders/Uploads.vue')
+      }
     },
     {
       path: "/orderdetails/:id",
       name: "orderdetailsdraft",
-      component: orderdetailsdraft
+      component: {
+        orderdetailsdraft: () =>  import('@/modules/Orders/orderdetailsdraft.vue')
+      }
     },
     {
       path:"/dashboard/",
@@ -79,17 +86,24 @@ export default new Router({
       children: [
         {
           path:'',
-          component: Myorders
+          component: {
+            Myorders: () => import('@/views/Myorders')
+          }
         },
         
         {
           path:'myorders',
-          component: Myorders
+          component: {
+             Myorders: () => import('@/views/Myorders')
+          }
         },
 
         {
           path:'notifications',
-          component: Notifications
+          name: 'notifications',
+          component: {
+            Notifications: () => import('@/modules/Notifications/Notifications'),
+          }
         },
         {
           path:'settings',
@@ -124,7 +138,12 @@ export default new Router({
 
       ]
     },
-    
-  ]
+]
+
+const router = new Router({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes,
 });
+export default router
 

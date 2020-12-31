@@ -15,10 +15,9 @@
      
       <v-list-item>
         <v-list-item-content>
-      
-
+    
             <v-img
-              :src="require('../assets/img/Genius.jpeg')"
+              :src="require('@/assets/img/Genius.jpeg')"
               alt="Essay Genius"
             />
         </v-list-item-content>
@@ -112,7 +111,7 @@
     </router-link>
 
 
-      <v-list dense nav @click.native="chatopen">
+      <v-list dense nav @click.native="$emit('ChatEvent')">
 
         <v-list-item link >
           <v-list-item-icon>
@@ -144,12 +143,13 @@
       </template>
 
     </v-navigation-drawer>
+    
   </v-card>
 </template>
 
 <script>
-import router from "../router"
-import store from "../store/store"
+import router from "@/router"
+import store from "@/store/store"
   export default {
     name:"NavigationDrawer",
     data () {
@@ -165,7 +165,6 @@ import store from "../store/store"
     },
     methods:{
       chatopen: function(){
-        console.log("clicked")
         this.$root.$emit('chatopen') //like this
       },
       logout: ()=> {

@@ -1,24 +1,23 @@
 <template>
-     <div class="ant-card ">
+     <v-card :color="ant" >
 
-                    <div class="card-header text-center">
-                       <h3 >Sign Up For Free</h3> 
-                    </div>
+                    <v-card-title :color="cardheader" >
+                       <h3 class="mx-auto" >Registration</h3> 
+                    </v-card-title>
                     <v-divider class="mt-n1"></v-divider>
-
-                    <div class="card-body">
-                        {{response}}
-                        
-                        <v-form
+                 <v-form
                         ref="form"
                         v-model="valid"
                         lazy-validation
                         @submit.prevent="signup"
-                        >
+                 >
+                    <v-card-text>
+                        {{response}}
                             <v-text-field
                             v-model="email"
                             label="Email"
                             :loading="loading"
+                            :rules= "emailRules"
                             required
                             :error-messages="error.email"
                             ></v-text-field>
@@ -27,42 +26,40 @@
                             v-model="password"
                             label="Password"
                             :loading="loading"
+                            :rules ="passwordRules"
                             required
                             :type="show? 'text' : 'password'"
                             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append="show=!show"
                             ></v-text-field>
 
-                        <v-row>
-                            <v-col>
-                                <v-btn shaped color="success" type="submit" :loading="loading">
-                                    Create Account
-                                </v-btn>
-
-                            </v-col>
-
-                            <v-col class="ml-10">
-                                 <router-link to="/auth/login" tag='div' style="cursor:pointer;" class="caption">Already <br> Registered?</router-link>
-                            </v-col>
-
-                        </v-row>
-                        
-                    </v-form>
+                    </v-card-text>
+                    <v-card-actions no-gutters>
+                        <v-btn :disabled="!valid" shaped color="success" type="submit" :loading="loading">
+                            Create Account
+                        </v-btn>
 
 
-                    </div>
+                        <v-col class="ml-5 caption" style="cursor:pointer;" >
+                                 <span >Already Registered? </span> <router-link to="/auth/login" class="text-decoration-underline "> Login </router-link>
+                        </v-col>
 
+                    </v-card-actions>
+                 </v-form>
             
-    </div>
+    </v-card>
 
 </template>
 
 <script>
 // import api from "../api"
 import axios from "axios"
+import generalMxn from '@/mixins/general_mixin';
+import validationMxn from '@/mixins/validation_mixin';
 
 export default {
     name:"SignUp",
+    mixins: [generalMxn, validationMxn],
     data () {
         return {
             show:false,

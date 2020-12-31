@@ -8,7 +8,6 @@
           {{ file.name }} ({{ file.size }} kb) <button @click="removeFile(file)" title="Remove">X</button>
         </li>
       </ul>
-      
       <button :disabled="uploadDisabled" @click="upload">Upload</button>
     </div>
 

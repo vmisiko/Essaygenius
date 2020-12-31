@@ -1,22 +1,21 @@
 <template>
-     <div class="ant-card ">
+     <v-card color="#273142" >
 
-                    <div class="card-header text-center">
-                       <h3 >Login </h3> 
-                    </div>
+                    <v-card-title color="#dbd7d779" >
+                       <h3 class="mx-auto"> Login </h3> 
+                    </v-card-title>
                     <v-divider class="mt-n1"></v-divider>
-
-                    <div class="card-body">
-                        
-                        <v-form
+                    <v-form             
                         ref="form"
                         v-model="valid"
                         lazy-validation
-                        @submit.prevent="login"
-                        >
+                    >
+                    <v-card-text class="card-body">
+
                             <v-text-field
                             v-model="email"
                             label="Email"
+                            :rules ="emailRules"
                             :loading="loading"
                             :error-messages="error.email"
                             required
@@ -25,6 +24,7 @@
                             <v-text-field
                             v-model="password"
                             label="Password"
+                            :rules="passwordRules"
                             required
                             :loading="loading"
                             :error-messages="error.password"
@@ -32,39 +32,28 @@
                             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
                             @click:append="show=!show"
                             ></v-text-field>
+                    </v-card-text>
+                    <v-card-actions >
+                        <v-btn class="ml-3" width="30%" :disabled="!valid" shaped color="success" type="submit" :loading="loading" @click.prevent="login">
+                            Login
+                        </v-btn>
 
-                        <v-row>
-                            <v-col>
-                                <!-- <router-link to="/dashboard/" > -->
-                                    <v-btn shaped color="success" type="submit" :loading="loading">
-                                        Login
-                                    </v-btn>
-                                <!-- </router-link> -->
-
-                            </v-col>
-
-                            <v-col class="">
-                                 <router-link to="/auth/forgot-password" tag='div' style="cursor:pointer;"> Forgot Password?</router-link>
-                                 <router-link to="/auth/register" tag='div' style="cursor:pointer;"> Create new Account</router-link>
-                            </v-col>
-                         
-
-
-
-                        </v-row>
+                        <v-col>
+                             <router-link to="/auth/forgot-password"  style="cursor:pointer;"> Forgot Password?</router-link> <br>
+                             <router-link to="/auth/register"  style="cursor:pointer;"> Create new Account</router-link>
+                        </v-col>
                         
-                    </v-form>
-
-
-                    </div>
-
+                    </v-card-actions>
+                        
+                </v-form>
             
-    </div>
+    </v-card>
 
 </template>
 
 <script>
 import axios from "axios"
+
 export default {
     name:"Login",
     data () {
@@ -72,18 +61,24 @@ export default {
             show:false,
             valid:false,
             email:"",
+            emailRules: [
+                (v) => !!v || "Email is required",
+                (v) => /.+@.+/.test(v) || 'E-mail must be valid',
+            ],
             password:"",
+            passwordRules: [
+                (v) => !!v || "password is required",
+            ],
             loading:false,
             error:{}
         }
     },
     methods:{
         login() {
-            const payload = {
+             const payload = {
               email: this.email,
               password: this.password
             }
-            console.log(payload)
 
            axios.post(this.$store.state.endpoints.obtainJWT, payload)
               .then((response)=>{

@@ -366,9 +366,7 @@ export default  {
 
 
     },
-    computed: {
-
-        
+    computed: { 
     },
 
     

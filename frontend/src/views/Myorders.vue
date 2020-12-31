@@ -41,7 +41,7 @@
                             <PlaceHolder
                             style="width:70vw"
                             v-if="true"
-                            :src = "require('../assets/img/svg/no-notifications.svg')"
+                            :src = "require('@/assets/img/svg/no-notifications.svg')"
                             title=" Nothing Here"
                             text =" Your opened orders appears here when you create first order"
                             />
@@ -124,19 +124,14 @@
 </template>
 
 <script>
-import Order_list from "../components/order_list"
-import ClosedOrder from "../components/ClosedOrder"
-import OpenedOrder from "../components/OpenedOrder"
-import PlaceHolder from "../components/PlaceHolder"
-
 export default  {
     name:"Myorders",
     components:{
        
-        Orderlist: Order_list,
-        ClosedOrder:ClosedOrder,
-        OpenedOrder:OpenedOrder,
-        PlaceHolder:PlaceHolder,
+        Orderlist: () => import('@/modules/Orders/order_list'),
+        ClosedOrder: () => import('@/modules/Orders/ClosedOrder'),
+        OpenedOrder: () => import('@/modules/Orders/OpenedOrder'),
+        PlaceHolder: () => import('@/components/core/PlaceHolder'),
 
     },
     data () {
@@ -155,8 +150,6 @@ export default  {
 
         }
     },
-
-    
     
 }
 </script>

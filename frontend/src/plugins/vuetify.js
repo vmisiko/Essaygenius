@@ -15,7 +15,6 @@ export default new Vuetify({
         themes: {
           dark: {
             background:"#1f2735",
-        
           }
         },
         anycolor:"#1f2735",

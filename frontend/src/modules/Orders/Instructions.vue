@@ -1,10 +1,10 @@
 <template>
 
 
-    <b-container fluid class="mt-5">
+    <b-container fluid>
 
         
-    <form action="" method="POST" enctype="multipart/form-data" @submit="submit">
+    <form action="" method="POST" enctype="multipart/form-data" @submit.prevent="submit">
 
         <b-row>
             
@@ -80,7 +80,15 @@
                     <button class="btn btn-primary text-left mb-5 col-12" @click.prevent="Mydelete"> <i class="far fa-trash-alt"></i> Discard draft</button>
 
 
-                   
+                    <div style="position: absolute; bottom: 0px;">
+                        
+                       <p class="item-description2 .text-muted">
+                           You can return to the previous step and change any details if necessary.
+                       </p>
+
+                        <!-- <router-link to ="/orderdetails" class="link"><button class="btn  btn-primary text-center col-md-12 "> <i class="fas fa-arrow-left"></i>   Previous  </button></router-link> -->
+                        <button class="btn  btn-primary text-center col-md-12 " @click= "back" > <i class="fas fa-arrow-left"></i>   Previous  </button>                         
+                    </div>
 
                 </div>
                 <!-- column one  -->
@@ -94,120 +102,99 @@
                         <div class="ant-card text-left px-3 py-4">
                 
 
-                                <div class="row ">
-                                    <div class="form-group col-lg-6 col-md-12">
+
+                                    <div class="form-group">
                                                 
-                                        <label for="id_type" class="form-control-label ">
-                                        Type
+                                        <label for="id_topic"  class="col-form-label">
+                                        Assignments topic
                                         </label>
 
-                                       
-                                        <input v-model="form.type" type="text" name="type" maxlength="255" class="textinput textInput form-control" id="id_topic" required>
+                                        <input v-model="form.topic"  type="text" name="topic" maxlength="255" class=" textInput form-control form-control" id="id_topic" required>
 
                                     </div>
 
+                                <div class="row ">
+                                    
+
                                     <div class="form-group col-lg-6 col-md-12">
                                                 
-                                            <label for="id_pages" class="col-form-label ">
-                                            Pages
+                                            <label for="id_sources" class="col-form-label ">
+                                            Number of Sources
                                             </label>
                                                 
-                                            <input v-model="form.pages" type="number" name="pages" value="0" class="numberinput form-control form-control" id="id_pages" required>
+                                            <input v-model="form.sources" type="number" name="sources" value="0" class="numberinput form-control form-control" id="id_sources" required>
         
                                     </div>
 
-                                </div>
-
-                                <div class="row ">
                                     <div class="form-group col-lg-6 col-md-12">
-                                        <label for="id_service" class="col-form-label ">
-                                        Service
+                                                
+                                        <label for="id_style" class="col-form-label ">
+                                        Style
                                         </label>
 
-                                        <select v-model="form.service" name="service" class="browser-default custom-select mb-3" required id="id_service" >
-                                                <option value="Writing" selected>Writing </option>
+                                        <select v-model="form.style" name="style" class="browser-default custom-select mb-3" required id="id_style" >
+                                                <option selected>Style </option>
                                             
-                                                <option value="Rewriting">Rewriting</option>
+                                                <option value="APA">APA</option>
                                             
-                                                <option value="Editing">Editing</option>
+                                                <option value="MLA">MLA</option>
                                             
-                                                <option value="ProofReading"> Proof Reading</option>
+                                                <option value="Chicago/Turabian"> Chicago/Turabian</option>
+
+                                                <option value="Harvad">Harvard</option>
+
+                                                <option value="Other">Other</option>
+
+                                                <option value="Not Applicable">Not Applicable</option>
                                             
                                             </select>
-                                    </div>
 
-                                    <div class="form-group col-lg-6 col-md-12">
-                                        <label for="id_service" class="col-form-label ">
-                                        Level
-                                        </label>
-
-                                        <select v-model="form.level" name="category" class="browser-default custom-select mb-3" required id="id_service" >
-                                                <option value="School" selected> School </option>
-
-                                            
-                                                <option value="COllege">College</option>
-                                            
-                                                <option value="Univerisity">Univerisity</option> 
-
-                                                <option value="Doctrate">Doctrate</option>                                           
-                                            
-                                            </select>
 
                                     </div>
 
                                 </div>
 
                                 <div class="row ">
-
                                     <div class="form-group col-lg-6 col-md-12">
+                                        <label for="id_subject" class="col-form-label ">
+                                        Subject
+                                        </label>
 
-                                        <label for="id_deadline" class="form-control-label">
-                                            Deadline
+                                        <select v-model="form.subject" 
+                                        name="subject" class="browser-default custom-select mb-3" 
+                                        required id="id_service" aria-placeholder="Select subject">
+                                                <option selected>-- select subject-- </option>
+                                            
+                                                <option value="Rewriting">Accounting</option>
+                                            
+                                                <option value="Editing">Advertising </option>
+                                            
+                                                <option value="statistics"> Statistics</option>
+                                                <option value="Maths"> Maths</option>
+                                                <option value="Art"> Art </option>
+                                                <option value="Biology"> Biology</option>
+                                            
+                                            </select>
+
+
+                                    </div>
+
+                                </div>
+
+
+
+                             <div class="form-group ">
+
+                                        <label for="id_instructions" class="col-form-label ">
+                                            instructions
                                         </label>
                                                                             
-                                        <!-- <input type="number" name="amount" value="0.0" class="numberinput form-control form-control" id="id_deadline" required> -->
-                                        <datetime id="id_deadline"  type="datetime" v-model="form.deadline" class="form-control" required></datetime>
+                                        <textarea v-model="form.instructions" type="instructions" name="instructions" rows="4" class=" form-control transparent-input " id="id_instructions" required></textarea>
 
-                                    </div>
+                             </div>
 
-                                    <div class="form-group col-lg-6 col-md-12">
-                                            
-                                        
-                                    </div>
-                                </div>
-
-                                <div class="custom-control custom-checkbox form-group">
-                                    <input v-model="form.checkbox" type="checkbox" id="id_checkbox"  class="custom-control-input " true-value="true" false-value="False">
-            
-                                    <label for="id_checkbox" class="custom-control-label">
-                                        I need the final answer earlier than the set Deadline
-                                    </label>
-                                    
-                                    <!-- <textarea name="instructions" cols="40" rows="3" maxlength="5000" class="textarea form-control form-control" id="id_instructions"></textarea> -->
-                                </div>    
-                              
-
-
-                            <b-row>
-                                <div class="form-group col-lg-6 col-md-12" >
-                                    <label for="id_language" class="col-form-label ">
-                                    Language
-                                    </label>
 
                                 
-                                    <select  v-model="form.language" name="language" class="browser-default custom-select mb-3" required id="id_language" >
-
-                                        <option value="English (UK)" selected>English (US) </option>
-                                                    
-                                        <option value="English (US)">English (UK)</option>
-                                                    
-                                        
-                                    </select>
-                                    
-                                </div>
-
-                            </b-row>
-                                                               
                            
 
                         </div>
@@ -218,18 +205,15 @@
 
                 <!-- column two  -->
 
-
-
-
                     <!-- column three  -->
                 <div class="col-lg-2 mt-5">
                     <div class="ant-card mt-2 mb-5">
                         Order draft
                     </div>
 
-                    <div style="position: absolute; bottom: 0px;" >
+                    <div style="position: absolute; bottom: 0px;">
                         
-                        <div class="ant-card mr-2 mt-5 mb-3 text-left px-3 py-4"  >
+                        <div class="ant-card mr-2 mt-5 mb-3 text-left px-3 py-4">
                             <h5 class="item-title">Summary: </h5>
                             <div  class="item-description2">
                                 <p>Quantity: <span class='text-muted '>  2 page / 550 words</span></p>
@@ -261,27 +245,25 @@
 </template>
 
 <script>
-import { Datetime } from 'vue-datetime';
-import router from "../router"
+
+import router from "@/router"
 import axios from 'axios'
 
 
 export default {
-    name:"orderdetailsdraft",
-    components:{ 
-        datetime: Datetime
-    } ,
+    
+    name:"Instructions",
+    
     data () {
         return {
-
             message: "This is a form Component",
-            form: {
-
+            form: {"id":"",
             }
         }
     },
-     mounted (){
-        axios.get(`http://127.0.0.1:8000/api/orderdetailsdraft/${this.$route.params.id}/`
+
+    mounted (){
+        axios.get(`http://127.0.0.1:8000/api/instructions/${this.$route.params.id}/`
         ).then( (res) => {
             console.log(res.data)
             this.form = res.data
@@ -291,24 +273,25 @@ export default {
 
         })
     },
-    methods:{
+  
+    methods: {
+        back () {
 
-        submit (e) {
-            e.preventDefault();
-            console.log(this.form); 
+            router.push(`/orderdetails/${this.$route.params.id}`)
+        },
+        submit () {
+            console.log(this.form);
 
-             axios.put(`http://127.0.0.1:8000/api/orderdetailsdraft/${this.$route.params.id}/`, {
-                body: this.form
+            axios.post(`http://127.0.0.1:8000/api/instructions/${this.$route.params.id}/`, {
+                body: {"id" : this.$route.params.id ,
+                        "form": this.form
+                        }
             }) 
             .then((res) => {
 
                 console.log( res.data)
-                var qs = res.data.qs
-                // console.log(q)
-
                 if (res.data.posted) {
-
-                    router.push("/instructions/"+ qs)
+                    router.push("/uploads/" + this.$route.params.id )
                 }
 
             
@@ -319,8 +302,7 @@ export default {
              })
 
         },
-
-        Mydelete () {
+         Mydelete () {
 
             axios.delete(`http://127.0.0.1:8000/api/orderdetailsdraft/${this.$route.params.id}/`, {
                 body:{"delete": "delete"}
@@ -345,8 +327,7 @@ export default {
 
             
         }
-    },
-    
+    }
 
     
 }
@@ -356,13 +337,13 @@ export default {
 <style scoped>
 
 .item-title {
-    font-size: 12px !important;
+    font-size: 16px !important;
     text-align: left !important;
 
 }
 
-.item-description {
-    font-size:11px !important;
+ .item-description {
+    font-size: 14px !important;
     text-align: left !important;
 }
 
@@ -372,6 +353,8 @@ export default {
 }
 .item-description2 .text-muted {
     font-size: 12px;
+    align-content: center;
 
 }
+
 </style>

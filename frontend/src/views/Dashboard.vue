@@ -2,7 +2,7 @@
 
     <v-row >
 
-        <sidebar class="sidebar"> </sidebar> 
+        <sidebar class="sidebar" @ChatEvent="chatstatus = !chatstatus"> </sidebar> 
 
         <v-main class="main-wrap">
             <!-- <Myorders/> -->
@@ -12,7 +12,7 @@
                 <router-view/>
             </div>
 
-            <div :is="currentComponent" :swap-component="swapComponent"></div>
+            <div :is="currentComponent" :swap-component="swapComponent" @chatEvent="chatstatus = !chatstatus"></div>
        
 
 
@@ -24,9 +24,10 @@
 </template>
 
 <script>
-import NavigationDrawer from "../components/NavigationDrawer"
+import NavigationDrawer from "@/components/core/NavigationDrawer"
 import ChatComponent from "./ChatComponent"
 import Chatlist from "./Chatlist"
+
 export default  {
     name:"Dashboard",
     components:{
@@ -37,21 +38,22 @@ export default  {
     data () {
         return {
             msg :"hey message",
-            chatstatus:true,
-            currentComponent: 'Chatlist'
+            chatstatus: false,
+            currentComponent: 'Chatlist',
         }
     },
-    methods:{
-        chatopen (){
-
-                if( this.chatstatus){
+    watch: {
+        chatstatus: (data) => {
+            if( data){
                 document.getElementById("curtain").style.display = "none"
                 } else {
                 document.getElementById("curtain").style.display = "block"
-
-                }
-        },
-        chatclose (){
+            }
+        }
+    },
+    methods:{
+       
+        chatclose() {
 
             this.chatstatus =!this.chatstatus
             document.getElementById("curtain").style.display = "none"
@@ -59,6 +61,9 @@ export default  {
         },
         swapComponent: function(component) {
          this.currentComponent = component;
+        },
+        print() {
+            console.log('clicked');
         }
 
     },

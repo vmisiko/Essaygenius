@@ -10,8 +10,7 @@
                 <v-row class="">
 
                 <v-tabs
-                background-color="transparent"
-                
+                background-color="transparent"            
                 >
                     <v-tab>Trensactions</v-tab>
                     <v-tab>Refund requests</v-tab>
@@ -69,19 +68,11 @@
                     
                 </v-tabs>
 
-            </v-row>
-            
-                
-
+                </v-row>           
             </div>
 
-            
-
-
         </v-main>
-        
-
-    
+         
 </template>
 
 <script>
@@ -89,8 +80,6 @@
 export default  {
     name:"Balance",
     components:{
-        
-
     },
     data () {
         return {
@@ -168,14 +157,8 @@ export default  {
                }
 
            ]
-
-           
-
         }
     },
-
-    
-    
 }
 </script>
 

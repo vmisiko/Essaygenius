@@ -1,21 +1,17 @@
 <template>
-     <div class="ant-card ">
+     <v-card color="#273142" >
 
-                    <div class="card-header text-center">
-                       <h3 > Forgot Password </h3> 
-                    </div>
+                    <v-card-title color="#dbd7d779">
+                       <h3 class="mx-auto"> Forgot Password </h3> 
+                    </v-card-title>
                     <v-divider class="mt-n1"></v-divider>
-
-                    <div class="card-body">
+                <v-form v-model='valid'>
+                    <v-card-text >
                         
-                        <v-form
-                        ref="form"
-                        v-model="valid"
-                        lazy-validation
-                        >
                             <v-text-field
                             v-model="Email"
                             label="Email"
+                            :rules="emailRules"
                             required
                             prepend-icon="mdi-email"
 
@@ -25,29 +21,29 @@
                                 Enter the email address associated with your account, and we’ll email you a link to reset your password.
                             </p>
 
-                           
+                    </v-card-text>
 
-                        </v-form>
-
-                    </div>
-
-                    <div class="card-footer text-center">
-                         
-                         <v-btn round color="primary"> Send Reset Link </v-btn>
-
-                    </div>
-
-            
-    </div>
+                    <v-card-actions class="text-center mb-5" >
+                        <v-spacer> </v-spacer>
+                        <v-btn :disabled="!valid" round color="primary" class="mb-5"> Send Reset Link </v-btn>
+                        <v-spacer> </v-spacer>
+                    </v-card-actions>
+                </v-form>
+           
+     </v-card>
 
 </template>
 
 <script>
+import validationMxn from '@/mixins/validation_mixin'
+
 export default {
     name:"Login",
+    mixins: [validationMxn],
     data () {
         return {
             show:true,
+            valid: false,
         }
     }
 

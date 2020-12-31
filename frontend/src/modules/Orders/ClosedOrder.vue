@@ -70,23 +70,15 @@
     </div>         
   </template>
 
-    
-           
-
 <script>
 
- export default {
+export default {
         name:"ClosedOrder",
         props: ['topic', "pages","type","language","status", "amount", "time",],
-        
     }
 </script>
 
 <style scoped>
 
-      
-     
-
-  
-  </style>
+</style>
             

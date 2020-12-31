@@ -77,7 +77,7 @@
 
                     <hr style=" background-color: #ffff;" class="">
 
-                    <button class="btn btn-primary text-left mb-5 col-12"> <i class="far fa-trash-alt"></i> Discard draft</button>
+                    <button class="btn btn-primary text-left mb-5 col-12" @click.prevent="Mydelete"> <i class="far fa-trash-alt"></i> Discard draft</button>
 
 
                    
@@ -90,7 +90,7 @@
             <div class="col-lg-8"> 
                     <div class=" ">
 
-                        <h1 class="text-left"><strong>Create New Order</strong></h1>
+                        <h1 class="text-left"><strong>  Order {{ $route.params.id }} <span style="color: #e47c2a"> (Draft) </span> </strong></h1>
                         <div class="ant-card text-left px-3 py-4">
                 
 
@@ -102,7 +102,6 @@
                                         </label>
 
                                        
-
                                         <input v-model="form.type" type="text" name="type" maxlength="255" class="textinput textInput form-control" id="id_topic" required>
 
                                     </div>
@@ -126,7 +125,7 @@
                                         </label>
 
                                         <select v-model="form.service" name="service" class="browser-default custom-select mb-3" required id="id_service" >
-                                                <option selected>Writing </option>
+                                                <option value="Writing" selected>Writing </option>
                                             
                                                 <option value="Rewriting">Rewriting</option>
                                             
@@ -166,6 +165,7 @@
                                             Deadline
                                         </label>
                                                                             
+                                        <!-- <input type="number" name="amount" value="0.0" class="numberinput form-control form-control" id="id_deadline" required> -->
                                         <datetime id="id_deadline"  type="datetime" v-model="form.deadline" class="form-control" required></datetime>
 
                                     </div>
@@ -177,7 +177,7 @@
                                 </div>
 
                                 <div class="custom-control custom-checkbox form-group">
-                                    <input name="checkbox" v-model="form.checkbox" type="checkbox" id="id_checkbox"  class="custom-control-input " true-value="True" false-value="False">
+                                    <input v-model="form.checkbox" type="checkbox" id="id_checkbox"  class="custom-control-input " true-value="true" false-value="False">
             
                                     <label for="id_checkbox" class="custom-control-label">
                                         I need the final answer earlier than the set Deadline
@@ -262,12 +262,12 @@
 
 <script>
 import { Datetime } from 'vue-datetime';
-import router from "../router"
+import router from "@/router"
 import axios from 'axios'
 
 
 export default {
-    name:"orderdetails",
+    name:"orderdetailsdraft",
     components:{ 
         datetime: Datetime
     } ,
@@ -280,13 +280,24 @@ export default {
             }
         }
     },
+     mounted (){
+        axios.get(`http://127.0.0.1:8000/api/orderdetailsdraft/${this.$route.params.id}/`
+        ).then( (res) => {
+            console.log(res.data)
+            this.form = res.data
+
+        }).catch( (e) =>{
+            console.log(e)
+
+        })
+    },
     methods:{
 
         submit (e) {
             e.preventDefault();
             console.log(this.form); 
 
-             axios.post("http://127.0.0.1:8000/api/orderdetail/", {
+             axios.put(`http://127.0.0.1:8000/api/orderdetailsdraft/${this.$route.params.id}/`, {
                 body: this.form
             }) 
             .then((res) => {
@@ -307,6 +318,32 @@ export default {
 
              })
 
+        },
+
+        Mydelete () {
+
+            axios.delete(`http://127.0.0.1:8000/api/orderdetailsdraft/${this.$route.params.id}/`, {
+                body:{"delete": "delete"}
+            }) 
+            .then((res) => {
+
+                console.log( res.data)
+                // var qs = res.data.qs
+                console.log(res.data)
+
+                if (res.data.deleted) {
+
+                    router.push("/orderdetails/")
+                }
+
+            
+            })
+            .catch((e) => {
+                console.log(e)
+
+             })
+
+            
         }
     },
     

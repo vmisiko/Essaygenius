@@ -29,7 +29,6 @@
 </template>
 
 <script>
-
 export default {
     name:"SignView",
     data () {
@@ -38,7 +37,6 @@ export default {
 
         }
     },
-    
 
 }
 </script>

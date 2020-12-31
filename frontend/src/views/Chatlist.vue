@@ -1,28 +1,25 @@
 <template>
     
             <div id="curtain"> 
-                <div class="card">
-                    <div class="card-header">
+                <v-card class="card" height="100%" light >
+                    <v-card-title >
 
-                        <h3 class="float-left">Chats</h3>
+                        <span class="ml-5">Chats</span>
 
-                        <span>
-                            <!-- {{ message | dateformat }} -->
-                        </span>
+                        <v-spacer></v-spacer>
                        
-                        <v-btn icon class="float-right" @click.prevent="chatclose"  light>  
-                           <!-- <h2><span aria-hidden="true">&times;</span></h2>  -->
+                        <v-btn icon class="mr-5" @click.native="$emit('chatEvent')"  light> 
                            <v-icon >fa-times</v-icon>
-
                         </v-btn>
                                      
 
-                    </div>
+                    </v-card-title>
+                    <v-divider class="mt-n1"></v-divider>
 
-                    <div class="card-body">
+                    <v-card-text class="mt-n5">
                         <div id="chat-body"  >
 
-                            <v-list two-line light dense v-for="(item,index) in items" @click.native="passChat(item.sender); swapComponent('ChatComponent')" :key="index" >
+                            <!-- <v-list two-line light dense v-for="(item,index) in items" @click.native="passChat(item.sender); swapComponent('ChatComponent')" :key="index" >
                                 <template >
 
         
@@ -35,7 +32,6 @@
                                         </v-list-item-avatar>
 
                                         <v-list-item-content>
-                                                <!-- <v-list-item-title v-text="'Client_' + item.id + ' .'+ (item.created_at | dateformat) "></v-list-item-title> -->
                                                 <v-list-item-title> Client_{{item.id}} {{item.created_at | dateformat }}</v-list-item-title>
 
                                                 <v-list-item-subtitle v-text="item.text"> </v-list-item-subtitle>
@@ -50,11 +46,36 @@
                                 </template>
 
 
-                            </v-list>
-                        </div>
-                    </div>
+                            </v-list> -->
 
-                </div>
+                            <v-list two-line light dense >
+                                <v-list-item-group v-model="model">
+                                    <v-list-item
+                                    v-for="(item, i) in items"
+                                    :key="i"
+                                    @click.native="passChat(item.sender); swapComponent('ChatComponent')"
+                                    >
+                                        <v-list-item-avatar>
+                                                <v-img src="https://cdn.vuetifyjs.com/images/lists/1.jpg"></v-img>
+                                        </v-list-item-avatar>
+
+                                        <v-list-item-content>
+                                             <v-list-item-title> Client_{{item.id}} {{item.created_at | dateformat }}</v-list-item-title>
+
+                                                <v-list-item-subtitle v-text="item.text"> </v-list-item-subtitle>
+                                        </v-list-item-content>
+
+                                        <v-list-item-icon>
+                                                <v-icon color='primary' x-small>mdi-greater-than</v-icon>
+                                        </v-list-item-icon>
+                                    </v-list-item>
+                                </v-list-item-group>
+                            </v-list>
+
+                        </div>
+                    </v-card-text>
+
+                </v-card>
 
             </div>
 </template>
@@ -194,7 +215,6 @@ export default {
 
 </script>
 <style scoped>
-
 
 
 </style>

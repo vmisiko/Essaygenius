@@ -1,17 +1,14 @@
 <template>
     
-            <v-layout id="curtain" > 
+            <div id="curtain" height="100vh"> 
             
-                <div class="card" >
-                    <v-toolbar light>
+                <v-card flat height="100%"  light>
+                    <v-toolbar >
                         <v-btn icon light @click="swapComponent('Chatlist')">
                              <v-icon>mdi-arrow-left</v-icon>
-
                         </v-btn>
                         
-                        
                         <v-badge
-                            
                             bottom
                             color="green"
                             dot
@@ -29,7 +26,7 @@
                         </v-list-item-content>
 
                         
-                        <v-btn icon class="" @click.prevent="chatclose"  light>  
+                        <v-btn icon class="mr-5" @click.prevent="chatclose"  light>  
                            <v-icon >fa-times</v-icon>
 
                         </v-btn>
@@ -38,17 +35,10 @@
 
                     </v-toolbar>
 
-                    <div class="card-body">
-                        <div id="chat-body" >
-
+                    <v-card-text id="chat-body" >
                              <div v-if="noMessages" class="mt-5 mx-3 text-center">
                                 No messages yet
                             </div>
-
-
-
-   
-
 
                             <div class="mb-4 mx-3" v-else>
                                 
@@ -68,28 +58,22 @@
                             </div>
                             
                             <div id="bottomOfArea"> </div>
+                    </v-card-text>
+                     <v-divider></v-divider>  
+                    <v-card-actions class="footer">
+                     <v-text-field
+                        v-model="message"
+                        label="Type here to send"
+                        light
+                        clearable
+                        v-on:keyup.enter="send"
+                        :append-outer-icon="message ? 'mdi-send' : 'mdi-microphone'"
+                        ></v-text-field>
+                    </v-card-actions>
 
-                        </div> 
-                            <v-divider></v-divider>  
-                            <div></div>  	
-                            <v-layout class="mx-4">
-                                <v-text-field
-                                    v-model="message"
-                                    label="Type here to send"
-                                    light
-                                    clearable
-                                    v-on:keyup.enter="send"
-                                    :append-outer-icon="message ? 'mdi-send' : 'mdi-microphone'"
+                </v-card>
 
-                                ></v-text-field>
-                            </v-layout>
-
-
-
-                    </div>
-                </div>
-
-            </v-layout>
+            </div>
 </template>
 
 <script>
@@ -106,7 +90,6 @@ export default {
             chatUsersMap: {},          
             chatSocket: null,
             message: '',
-
             messages: [],
             noMessages: true
         }
@@ -187,8 +170,6 @@ export default {
         var elem = document.getElementById("bottomOfArea");
         elem.scrollIntoView({behavior: "smooth", block: "end"});
     },
-
-
     mounted() {
         this.$root.$on('chatopen', () => {
             this.chatstatus =!this.chatstatus
@@ -198,6 +179,10 @@ export default {
 }
 
 </script>
-<style lang="stylus" scoped>
+<style scoped>
+.footer.v-card-actions {
+    position: fixed;
+    bottom:0;
+}
 
 </style>
