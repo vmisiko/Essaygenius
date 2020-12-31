@@ -1,38 +1,48 @@
 <template>
-<div>
-  <b-navbar toggleable="lg" type="light" variant="info">
-    <b-navbar-brand> <router-link to = "/" ><img src="" style="width:100px; height:50px;" ></router-link>
-</b-navbar-brand>
+  <div>
+    <b-navbar toggleable="lg" type="light" variant="info">
+      <b-navbar-brand>
+        <router-link to="/"
+          ><img src="" style="width:100px; height:50px;"
+        /></router-link>
+      </b-navbar-brand>
 
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <b-collapse id="nav-collapse" is-nav>
-      <b-navbar-nav>
-
-        <b-nav-item  > <router-link to ="/index" > <p class= "nav-color"> Index</p>  </router-link></b-nav-item>
-        <b-nav-item  > <router-link to ="/edit" > <p class= "nav-color"> Edit</p>  </router-link></b-nav-item>
-        <b-nav-item  > <router-link to ="/create" > <p class= "nav-color"> create</p>  </router-link></b-nav-item>
-      </b-navbar-nav>
-
-      
-    </b-collapse>
-  </b-navbar>
-</div>
-    
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav>
+          <b-nav-item>
+            <router-link to="/index">
+              <p class="nav-color">Index</p>
+            </router-link></b-nav-item
+          >
+          <b-nav-item>
+            <router-link to="/edit">
+              <p class="nav-color">Edit</p>
+            </router-link></b-nav-item
+          >
+          <b-nav-item>
+            <router-link to="/create">
+              <p class="nav-color">create</p>
+            </router-link></b-nav-item
+          >
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
 </template>
 
 <script>
 export default {
-    name:"Navbar"
-}
+  name: "Navbar"
+};
 </script>
 
 <style scooped>
-.nav-color{
+.nav-color {
   text-decoration: none;
-  color:white
+  color: white;
 }
-
 
 .nav-color:link {
   color: red;
@@ -45,7 +55,7 @@ export default {
 
 /* mouse over link */
 .nav-color:hover {
-  color:purple;
+  color: purple;
 }
 
 /* selected link */
